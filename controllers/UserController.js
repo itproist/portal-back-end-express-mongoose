@@ -1,30 +1,17 @@
 import UserModel from "../models/User.js";
 import jwt from "jsonwebtoken";
-import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
-import Role from "../models/Role.js";
-import Telephone from "../models/Telephone.js";
-import Position from "../models/Position.js";
-import Passport from "../models/Passport.js";
-import Person from "../models/Person.js";
 
 export const register = async (req, res) => {
   try {
     const password = req.body.password;
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
-    const userRole = await Role.findOne();
-    const userPosition = await Position.findById("64552cbc1ef0d0d114a944e0");
 
     const doc = new UserModel({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      surname: req.body.surname,
+      fullName: req.body.fullName,
       email: req.body.email,
       passwordHash: hash,
-      roles: [userRole.role],
-      position: [userPosition.position],
-
       avatarUrl: req.body.avatarUrl,
     });
 
@@ -187,9 +174,7 @@ export const updateUser = async (req, res) => {
         _id: userId,
       },
       {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        surname: req.body.surname,
+        fillName: req.body.fillName,
         email: req.body.email,
         passwordHash: hash,
         avatarUrl: req.body.avatarUrl,

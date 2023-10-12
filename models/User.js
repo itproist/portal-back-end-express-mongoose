@@ -2,17 +2,10 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    firstName: {
+    fullName: {
       type: String,
       required: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
-    surname: {
-      type: String,
-      required: true,
+      unique: true,
     },
     email: {
       type: String,
@@ -24,36 +17,6 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     avatarUrl: String,
-    roles: [
-      {
-        type: String,
-        ref: "Role",
-      },
-    ],
-    position: [
-      {
-        type: String,
-        ref: "Position",
-      },
-    ],
-    telephone: [
-      {
-        type: String,
-        ref: "Telephone",
-      },
-    ],
-    passport: [
-      {
-        type: String,
-        ref: "Passport",
-      },
-    ],
-    person: [
-      {
-        type: String,
-        ref: "Person",
-      },
-    ],
   },
   {
     timestamps: true,

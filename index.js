@@ -3,17 +3,12 @@ import mongoose from "mongoose";
 import multer from "multer";
 import { UserController, PostController } from "./controllers/index.js";
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
-import {
-  loginValidation,
-  postCreateValidation,
-  registerValidation,
-} from "./validations/index.js";
+import { loginValidation, postCreateValidation } from "./validations/index.js";
 import cors from "cors";
-import User from "./models/User.js";
 
 mongoose
   .connect(
-    "mongodb+srv://admin:admin@portalgaz.bb2onwj.mongodb.net/portalGAZ?retryWrites=true&w=majority"
+    "mongodb+srv://admin:admin@mern.q0o0jzj.mongodb.net/portal?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log(`Database work`);
@@ -42,7 +37,7 @@ app.use(cors());
 app.use("/uploads", express.static("uploads"));
 
 // Регистрация, авторизация и  получение информации об себе handleValidationErrors
-app.post("/auth/register", UserController.register);
+app.post("/auth/register", handleValidationErrors, UserController.register);
 app.post(
   "/auth/login",
   loginValidation,
@@ -52,7 +47,7 @@ app.post(
 app.get("/users", UserController.getAll);
 
 // checkAuth
-app.get("/auth/me", UserController.me);
+app.get("/auth/me", checkAuth, UserController.me);
 // +
 app.get("/auth/me/:id", UserController.updateMe);
 app.delete("/auth/me/:id", UserController.removeUser);
