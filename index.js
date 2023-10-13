@@ -5,6 +5,7 @@ import { UserController, PostController } from "./controllers/index.js";
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
 import { loginValidation, postCreateValidation } from "./validations/index.js";
 import cors from "cors";
+require("dotenv").config();
 
 mongoose
   .connect(
